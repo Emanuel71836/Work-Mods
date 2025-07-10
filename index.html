@@ -3,85 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site com Botões de Login/Cadastro</title>
+    <title>Meu Site com Botões de Login/Cadastro (Brilho Maior)</title>
     <style>
         body {
             background-color: black; /* Fundo da página preto */
             margin: 0;
-            padding: 0; /* Remove padding do body para controle total do posicionamento */
-            height: 100vh; /* Ocupa 100% da altura da tela */
-            display: flex; /* Mantém flexbox para o body caso você queira centralizar outros elementos futuramente */
-            justify-content: center; /* Centraliza horizontalmente se houver conteúdo no centro */
-            align-items: center; /* Centraliza verticalmente se houver conteúdo no centro */
-            color: white; /* Cor do texto padrão para a página */
-            font-family: sans-serif; /* Fonte básica */
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: sans-serif;
         }
 
         /* Contêiner para os botões no canto superior direito */
         .botoes-container {
-            position: fixed; /* Fixa o contêiner na tela, independente da rolagem */
-            top: 20px; /* Distância do topo */
-            right: 20px; /* Distância da direita */
-            display: flex; /* Para organizar os botões lado a lado */
-            gap: 15px; /* Espaço entre os botões */
-            z-index: 1000; /* Garante que os botões fiquem acima de outros elementos */
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
         }
 
         /* Estilo para o botão de Cadastro (Preto com brilho branco) */
         .cadastro-btn-preto-borda {
-            background-color: #222222; /* Preto principal */
-            color: white; /* Texto branco */
-            padding: 10px 20px; /* Ajustei o padding para um botão de canto */
-            border: 1px solid #333333; /* Borda sutil */
+            background-color: #222222;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid #333333;
             border-radius: 5px;
-            font-size: 16px; /* Ajustei o tamanho da fonte */
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+            /* A transição agora inclui a box-shadow para suavidade */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; 
             outline: none;
-            text-decoration: none; /* Para usar em tags <a> se preferir */
-            display: inline-block; /* Garante que padding e margin funcionem corretamente */
+            text-decoration: none;
+            display: inline-block;
         }
 
         .cadastro-btn-preto-borda:hover {
-            background-color: #3b3b3b; /* Preto um pouco mais claro no hover */
-            box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.7); /* Brilho branco na borda */
+            background-color: #3b3b3b;
+            /* Aumentamos o desfoque (10px) e a propagação (5px) para um brilho maior */
+            box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.7); /* Brilho branco maior */
         }
 
-        /* Estilo para o botão de Login (Laranja, adaptado) */
+        /* Estilo para o botão de Login (Laranja) */
         .login-btn-laranja {
             background-color: #ff8c00; /* Laranja principal */
-            color: white; /* Texto branco */
-            padding: 10px 20px; /* Mesmo padding do outro botão */
-            border: none;
+            color: white;
+            padding: 10px 20px;
+            border: none; /* Mantemos sem borda para o efeito de sombra se sobressair */
             border-radius: 5px;
-            font-size: 16px; /* Mesmo tamanho da fonte */
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            /* A transição agora inclui a box-shadow para suavidade */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; 
             outline: none;
-            text-decoration: none; /* Para usar em tags <a> se preferir */
+            text-decoration: none;
             display: inline-block;
         }
 
         .login-btn-laranja:hover {
             background-color: #ffa500; /* Laranja mais claro no hover */
-            box-shadow: 0 0 10px rgba(255, 165, 0, 0.7); /* Efeito de luz laranja */
-        }
-
-        /* Opcional: Estilo para um botão de texto (Ex: "Fale Conosco") */
-        .btn-texto {
-            background: none;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            outline: none;
-        }
-        .btn-texto:hover {
-            color: #ddd;
+            /* Adicionamos um box-shadow laranja maior */
+            box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.7); /* Brilho laranja maior */
         }
     </style>
 </head>
@@ -90,6 +79,5 @@
         <button class="login-btn-laranja">Login</button>
         <button class="cadastro-btn-preto-borda">Cadastre-se</button>
     </div>
-
-    </body>
+</body>
 </html>
