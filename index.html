@@ -12,11 +12,12 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* O alinhamento vertical principal continua no centro */
+            justify-content: center;
             align-items: center;
             color: white;
             font-family: sans-serif;
             text-align: center;
+            position: relative; /* Adicionado para ser o contêiner do título posicionado */
         }
 
         /* Contêiner para os botões no canto superior direito */
@@ -29,14 +30,19 @@
             z-index: 1000;
         }
 
-        /* Estilo para o título principal em destaque */
+        /* ESTILO ATUALIZADO PARA O TÍTULO - POSICIONAMENTO ABSOLUTO */
         .titulo-destaque {
             font-size: 2.5em;
             font-weight: bold;
             color: #ff8c00;
             text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
-            margin-bottom: 20px; /* Espaço abaixo do título */
-            margin-top: -150px; /* MOVIDO PARA CIMA: Margem negativa para puxar para cima */
+            
+            position: absolute; /* POSICIONAMENTO ABSOLUTO */
+            top: 50px; /* DISTÂNCIA DO TOPO */
+            left: 50%; /* MOVE PARA O CENTRO DA PÁGINA */
+            transform: translateX(-50%); /* AJUSTA O ALINHAMENTO HORIZONTALMENTE */
+            width: 100%;
+            max-width: 800px; /* Limita a largura para evitar quebras de linha estranhas */
         }
 
         /* Estilos de link que se parecem com botões */
