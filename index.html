@@ -3,20 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Preta</title>
+    <title>Meu Site com Botões</title>
     <style>
         body {
-            background-color: black; /* Define o fundo da página como preto */
-            margin: 0; /* Remove a margem padrão do body */
-            padding: 0; /* Remove o preenchimento padrão do body */
-            height: 100vh; /* Faz o body ocupar 100% da altura da viewport */
-            display: flex; /* Para centralizar conteúdo se você adicionar algo depois */
-            justify-content: center; /* Centraliza horizontalmente */
-            align-items: center; /* Centraliza verticalmente */
-            color: white; /* Define a cor do texto padrão como branco (se você adicionar texto) */
+            background-color: black; /* Fundo da página preto */
+            margin: 0;
+            padding: 20px; /* Pequeno padding para evitar que os botões fiquem colados na borda */
+            height: 100vh; /* Ocupa 100% da altura da tela */
+            display: flex; /* Para usar flexbox e centralizar conteúdo */
+            flex-direction: column; /* Organiza os itens em coluna (um botão abaixo do outro) */
+            justify-content: center; /* Centraliza verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
+            color: white; /* Cor do texto padrão para a página */
+            font-family: sans-serif; /* Fonte básica */
+        }
+
+        /* Estilo para o botão preto com brilho branco na borda */
+        .cadastro-btn-preto-borda {
+            background-color: #222222; /* Preto principal */
+            color: white; /* Texto branco */
+            padding: 15px 30px;
+            border: 1px solid #333333; /* Borda sutil */
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Transição suave */
+            outline: none; /* Remove o contorno do foco padrão */
+            margin-bottom: 20px; /* Adiciona espaço abaixo do botão para separar do próximo */
+        }
+
+        .cadastro-btn-preto-borda:hover {
+            background-color: #3b3b3b; /* Preto um pouco mais claro no hover */
+            box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.7); /* Brilho branco na borda */
+        }
+
+        /* Estilo para o botão laranja (opcional, se quiser os dois) */
+        .cadastro-btn-laranja {
+            background-color: #ff8c00; /* Laranja principal */
+            color: white; /* Texto branco */
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+            outline: none;
+        }
+
+        .cadastro-btn-laranja:hover {
+            background-color: #ffa500; /* Laranja mais claro no hover */
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.7); /* Efeito de luz laranja */
         }
     </style>
 </head>
 <body>
+    <button class="cadastro-btn-preto-borda">Cadastre-se (Preto)</button>
+
     </body>
 </html>
