@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            font-family: sans-serif;
+            flex-direction: column;
+        }
+
+        .form-container {
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .form-container h2 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .input-group input {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            font-size: 1em;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff8c00;
+            box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+        }
+
+        .btn-submit {
+            background-color: #ff8c00;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn-submit:hover {
+            background-color: #ffa500;
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
+        }
+
+        /* ESTILO PARA O BOTÃO DO GOOGLE (PRETO COM BRILHO BRANCO) */
+        .btn-google {
+            background-color: #222222;
+            color: white;
+            padding: 15px 30px;
+            border: 1px solid #333333;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-google:hover {
+            background-color: #3b3b3b;
+            box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.7);
+        }
+
+        .btn-google img {
+            margin-right: 10px;
+            height: 20px;
+        }
+
+        .message {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .link-back {
+            color: #ff8c00;
+            text-decoration: none;
+            margin-top: 25px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        .link-back:hover {
+            color: #ffa500;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="emailLogin">Email:</label>
+                <input type="email" id="emailLogin" required>
+            </div>
+            <div class="input-group">
+                <label for="senhaLogin">Senha:</label>
+                <input type="password" id="senhaLogin" required>
+            </div>
+            <button type="submit" class="btn-submit">Entrar</button>
+            <p id="loginMessage" class="message"></p>
+        </form>
+        
+        <p style="margin: 25px 0 0; color: #ccc;">Ou</p>
+
+        <!-- Botão Login com Google -->
+        <button id="googleLoginBtn" class="btn-google">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon">
+            Login com Google
+        </button>
+
+        <a href="cadastro.html" class="link-back">Ainda não tem uma conta? Cadastre-se</a>
+    </div>
+
+    <!-- SDK do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script>
+        // SUAS CONFIGURAÇÕES DO PROJETO FIREBASE ESTÃO AQUI
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgU2y-cl3n2HSl70jE4yhjQtFwGwC3cjw",
+            authDomain: "work-mods.firebaseapp.com",
+            projectId: "work-mods",
+            storageBucket: "work-mods.firebasestorage.app",
+            messagingSenderId: "215308060127",
+            appId: "1:215308060127:web:2ba923815e199ad817306a",
+            measurementId: "G-V2ZCG3JTRK"
+        };
+
+        // Inicialize o Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Obtenha a instância de autenticação
+        const auth = firebase.auth();
+
+        // Lidar com o envio do formulário de login (Email/Senha)
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('emailLogin').value;
+            const senha = document.getElementById('senhaLogin').value;
+            const messageElement = document.getElementById('loginMessage');
+
+            messageElement.textContent = '';
+
+            try {
+                await auth.signInWithEmailAndPassword(email, senha);
+                messageElement.style.color = 'green';
+                messageElement.textContent = 'Login bem-sucedido! Redirecionando...';
+                setTimeout(() => {
+                    window.location.href = 'sucesso.html';
+                }, 2000);
+            } catch (error) {
+                console.error("Erro no login (Email/Senha):", error.message);
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    messageElement.textContent = 'Email ou senha inválidos.';
+                } else if (error.code === 'auth/invalid-email') {
+                    messageElement.textContent = 'Formato de email inválido.';
+                } else {
+                    messageElement.textContent = `Erro no login: ${error.message}`;
+                }
+                messageElement.style.color = 'red';
+            }
+        });
+
+        // Lidar com o Login com Google
+        document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const messageElement = document.getElementById('loginMessage');
+            messageElement.textContent = '';
+
+            try {
+                await auth.signInWithPopup(provider);
+                messageElement.style.color = 'green';
+                messageElement.textContent = 'Login com Google bem-sucedido! Redirecionando...';
+                setTimeout(() => {
+                    window.location.href = 'sucesso.html';
+                }, 2000);
+            } catch (error) {
+                console.error("Erro no login com Google:", error.message);
+                if (error.code === 'auth/popup-closed-by-user') {
+                    messageElement.textContent = 'Login com Google cancelado.';
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                     messageElement.textContent = 'Você já tem um pop-up de login aberto.';
+                } else if (error.code === 'auth/account-exists-with-different-credential') {
+                    messageElement.textContent = 'Já existe uma conta com este e-mail usando outro método de login.';
+                } else {
+                    messageElement.textContent = `Erro no login com Google: ${error.message}`;
+                }
+                messageElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
