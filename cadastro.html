@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            font-family: sans-serif;
+            flex-direction: column;
+        }
+
+        .form-container {
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .form-container h2 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .input-group input {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            font-size: 1em;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff8c00;
+            box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+        }
+
+        .btn-submit {
+            background-color: #ff8c00;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn-submit:hover {
+            background-color: #ffa500;
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
+        }
+
+        .message {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .link-back {
+            color: #ff8c00;
+            text-decoration: none;
+            margin-top: 25px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        .link-back:hover {
+            color: #ffa500;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Cadastre-se</h2>
+        <form id="cadastroForm">
+            <div class="input-group">
+                <label for="emailCadastro">Email:</label>
+                <input type="email" id="emailCadastro" required>
+            </div>
+            <div class="input-group">
+                <label for="senhaCadastro">Senha:</label>
+                <input type="password" id="senhaCadastro" required>
+            </div>
+            <div class="input-group">
+                <label for="confirmarSenhaCadastro">Confirmar Senha:</label>
+                <input type="password" id="confirmarSenhaCadastro" required>
+            </div>
+            <button type="submit" class="btn-submit">Registrar</button>
+            <p id="cadastroMessage" class="message"></p>
+        </form>
+        <a href="login.html" class="link-back">Já tem uma conta? Faça login</a>
+    </div>
+
+    <!-- SDK do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script>
+        // SUAS CONFIGURAÇÕES DO PROJETO FIREBASE ESTÃO AQUI
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgU2y-cl3n2HSl70jE4yhjQtFwGwC3cjw",
+            authDomain: "work-mods.firebaseapp.com",
+            projectId: "work-mods",
+            storageBucket: "work-mods.firebasestorage.app",
+            messagingSenderId: "215308060127",
+            appId: "1:215308060127:web:2ba923815e199ad817306a",
+            measurementId: "G-V2ZCG3JTRK"
+        };
+
+        // Inicialize o Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Obtenha a instância de autenticação
+        const auth = firebase.auth();
+
+        // Lidar com o envio do formulário de cadastro
+        document.getElementById('cadastroForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('emailCadastro').value;
+            const senha = document.getElementById('senhaCadastro').value;
+            const confirmarSenha = document.getElementById('confirmarSenhaCadastro').value;
+            const messageElement = document.getElementById('cadastroMessage');
+
+            messageElement.textContent = '';
+
+            if (senha !== confirmarSenha) {
+                messageElement.textContent = 'As senhas não coincidem!';
+                return;
+            }
+
+            try {
+                await auth.createUserWithEmailAndPassword(email, senha);
+                messageElement.style.color = 'green';
+                messageElement.textContent = 'Cadastro realizado com sucesso! Redirecionando para o login...';
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            } catch (error) {
+                console.error("Erro no cadastro:", error.message);
+                if (error.code === 'auth/email-already-in-use') {
+                    messageElement.textContent = 'Este email já está em uso.';
+                } else if (error.code === 'auth/weak-password') {
+                    messageElement.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+                } else if (error.code === 'auth/invalid-email') {
+                    messageElement.textContent = 'Formato de email inválido.';
+                } else {
+                    messageElement.textContent = `Erro no cadastro: ${error.message}`;
+                }
+                messageElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
