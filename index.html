@@ -3,34 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site com Botões</title>
+    <title>Meu Site com Botões de Login/Cadastro</title>
     <style>
         body {
             background-color: black; /* Fundo da página preto */
             margin: 0;
-            padding: 20px; /* Pequeno padding para evitar que os botões fiquem colados na borda */
+            padding: 0; /* Remove padding do body para controle total do posicionamento */
             height: 100vh; /* Ocupa 100% da altura da tela */
-            display: flex; /* Para usar flexbox e centralizar conteúdo */
-            flex-direction: column; /* Organiza os itens em coluna (um botão abaixo do outro) */
-            justify-content: center; /* Centraliza verticalmente */
-            align-items: center; /* Centraliza horizontalmente */
+            display: flex; /* Mantém flexbox para o body caso você queira centralizar outros elementos futuramente */
+            justify-content: center; /* Centraliza horizontalmente se houver conteúdo no centro */
+            align-items: center; /* Centraliza verticalmente se houver conteúdo no centro */
             color: white; /* Cor do texto padrão para a página */
             font-family: sans-serif; /* Fonte básica */
         }
 
-        /* Estilo para o botão preto com brilho branco na borda */
+        /* Contêiner para os botões no canto superior direito */
+        .botoes-container {
+            position: fixed; /* Fixa o contêiner na tela, independente da rolagem */
+            top: 20px; /* Distância do topo */
+            right: 20px; /* Distância da direita */
+            display: flex; /* Para organizar os botões lado a lado */
+            gap: 15px; /* Espaço entre os botões */
+            z-index: 1000; /* Garante que os botões fiquem acima de outros elementos */
+        }
+
+        /* Estilo para o botão de Cadastro (Preto com brilho branco) */
         .cadastro-btn-preto-borda {
             background-color: #222222; /* Preto principal */
             color: white; /* Texto branco */
-            padding: 15px 30px;
+            padding: 10px 20px; /* Ajustei o padding para um botão de canto */
             border: 1px solid #333333; /* Borda sutil */
             border-radius: 5px;
-            font-size: 18px;
+            font-size: 16px; /* Ajustei o tamanho da fonte */
             font-weight: bold;
             cursor: pointer;
-            transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Transição suave */
-            outline: none; /* Remove o contorno do foco padrão */
-            margin-bottom: 20px; /* Adiciona espaço abaixo do botão para separar do próximo */
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+            outline: none;
+            text-decoration: none; /* Para usar em tags <a> se preferir */
+            display: inline-block; /* Garante que padding e margin funcionem corretamente */
         }
 
         .cadastro-btn-preto-borda:hover {
@@ -38,28 +48,48 @@
             box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.7); /* Brilho branco na borda */
         }
 
-        /* Estilo para o botão laranja (opcional, se quiser os dois) */
-        .cadastro-btn-laranja {
+        /* Estilo para o botão de Login (Laranja, adaptado) */
+        .login-btn-laranja {
             background-color: #ff8c00; /* Laranja principal */
             color: white; /* Texto branco */
-            padding: 15px 30px;
+            padding: 10px 20px; /* Mesmo padding do outro botão */
             border: none;
             border-radius: 5px;
-            font-size: 18px;
+            font-size: 16px; /* Mesmo tamanho da fonte */
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             outline: none;
+            text-decoration: none; /* Para usar em tags <a> se preferir */
+            display: inline-block;
         }
 
-        .cadastro-btn-laranja:hover {
+        .login-btn-laranja:hover {
             background-color: #ffa500; /* Laranja mais claro no hover */
             box-shadow: 0 0 10px rgba(255, 165, 0, 0.7); /* Efeito de luz laranja */
+        }
+
+        /* Opcional: Estilo para um botão de texto (Ex: "Fale Conosco") */
+        .btn-texto {
+            background: none;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            outline: none;
+        }
+        .btn-texto:hover {
+            color: #ddd;
         }
     </style>
 </head>
 <body>
-    <button class="cadastro-btn-preto-borda">Cadastre-se (Preto)</button>
+    <div class="botoes-container">
+        <button class="login-btn-laranja">Login</button>
+        <button class="cadastro-btn-preto-borda">Cadastre-se</button>
+    </div>
 
     </body>
 </html>
