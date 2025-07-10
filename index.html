@@ -11,12 +11,12 @@
             padding: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column; /* Para alinhar o título e os botões */
-            justify-content: center;
+            flex-direction: column;
+            justify-content: center; /* O alinhamento vertical principal continua no centro */
             align-items: center;
             color: white;
             font-family: sans-serif;
-            text-align: center; /* Centraliza o texto */
+            text-align: center;
         }
 
         /* Contêiner para os botões no canto superior direito */
@@ -31,12 +31,12 @@
 
         /* Estilo para o título principal em destaque */
         .titulo-destaque {
-            font-size: 2.5em; /* Tamanho da fonte maior */
+            font-size: 2.5em;
             font-weight: bold;
-            color: #ff8c00; /* Laranja para destaque */
-            text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00; /* Efeito de brilho */
+            color: #ff8c00;
+            text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
             margin-bottom: 20px; /* Espaço abaixo do título */
-            padding-top: 100px; /* Garante que não fique muito colado no topo */
+            margin-top: -150px; /* MOVIDO PARA CIMA: Margem negativa para puxar para cima */
         }
 
         /* Estilos de link que se parecem com botões */
