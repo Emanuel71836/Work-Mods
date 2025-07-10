@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <title>Work Mods</title>
     <style>
         body {
             background-color: black;
@@ -11,12 +11,15 @@
             padding: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column; /* Para alinhar o título e os botões */
             justify-content: center;
             align-items: center;
             color: white;
             font-family: sans-serif;
+            text-align: center; /* Centraliza o texto */
         }
 
+        /* Contêiner para os botões no canto superior direito */
         .botoes-container {
             position: fixed;
             top: 20px;
@@ -24,6 +27,16 @@
             display: flex;
             gap: 15px;
             z-index: 1000;
+        }
+
+        /* Estilo para o título principal em destaque */
+        .titulo-destaque {
+            font-size: 2.5em; /* Tamanho da fonte maior */
+            font-weight: bold;
+            color: #ff8c00; /* Laranja para destaque */
+            text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00; /* Efeito de brilho */
+            margin-bottom: 20px; /* Espaço abaixo do título */
+            padding-top: 100px; /* Garante que não fique muito colado no topo */
         }
 
         /* Estilos de link que se parecem com botões */
@@ -35,8 +48,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
             outline: none;
-            text-decoration: none; /* remove o sublinhado dos links */
-            display: inline-block; /* para que o padding funcione */
+            text-decoration: none;
+            display: inline-block;
             text-align: center;
             line-height: 1.2;
         }
@@ -68,5 +81,7 @@
         <a href="cadastro.html" class="cadastro-btn-preto-borda">Cadastre-se</a>
     </div>
 
-    </body>
+    <h1 class="titulo-destaque">O MELHOR SITE PRA PUBLICAÇÃO DE MODS DE TODOS OS TIPOS</h1>
+    
+</body>
 </html>
