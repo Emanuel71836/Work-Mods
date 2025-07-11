@@ -88,8 +88,8 @@
         logoutBtn.addEventListener('click', async () => {
             try {
                 await signOut(auth);
-                // Redireciona para a página de login após o logout
-                window.location.href = 'login.html';
+                // AQUI ESTÁ A CORREÇÃO: Redireciona para a página principal (index.html)
+                window.location.href = 'index.html';
             } catch (error) {
                 console.error("Erro ao fazer logout:", error);
                 alert("Erro ao fazer logout. Tente novamente.");
