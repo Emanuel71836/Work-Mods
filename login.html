@@ -128,7 +128,7 @@
 
         // LÓGICA DE LOGIN COM E-MAIL E SENHA (EXISTENTE)
         loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Esta linha impede que a página recarregue
             const email = loginForm['email'].value;
             const password = loginForm['password'].value;
             const loginBtn = loginForm.querySelector('button');
