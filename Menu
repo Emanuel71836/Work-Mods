@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mods - Work Mods</title>
+    <style>
+        /* --- ESTILOS GLOBAIS DA PÁGINA --- */
+        body {
+            background-color: black;
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        /* --- ESTILOS DO MENU PRINCIPAL --- */
+        .menu-principal {
+            background-color: #1a1a1a;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .menu-principal ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        
+        .menu-principal li {
+            margin: 0 15px;
+        }
+        
+        .menu-principal a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .menu-principal a:hover {
+            color: #ff8c00;
+        }
+        
+        .btn-login {
+            background-color: #ff8c00;
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: #ffa500;
+        }
+
+        /* --- ESTILOS DO CONTEÚDO DOS MODS --- */
+        .mods-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .mods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Layout em grade responsivo */
+            gap: 30px; /* Espaço entre os cartões */
+        }
+
+        .mod-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden; /* Garante que a imagem não saia da borda */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: left; /* Alinha o texto à esquerda */
+            transition: transform 0.3s;
+        }
+
+        .mod-card:hover {
+            transform: translateY(-5px); /* Efeito de elevação no hover */
+        }
+
+        .mod-card img {
+            width: 100%;
+            height: 180px; /* Altura fixa para as imagens */
+            object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+        }
+
+        .mod-info {
+            padding: 20px;
+        }
+
+        .mod-info h3 {
+            color: #ff8c00;
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .mod-info p {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .mod-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #888;
+            margin-top: 15px;
+        }
+        .mod-details span {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="menu-principal">
+        <ul class="menu-navegacao">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#mods">Mods</a></li>
+            <li><a href="#comunidade">Comunidade</a></li>
+        </ul>
+        <ul class="menu-usuario">
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="login.html" class="btn-login">Login</a></li>
+        </ul>
+    </nav>
+    
+    <main class="mods-container">
+        <h1>Mods em Destaque</h1>
+        <section class="mods-grid">
+            <div class="mod-card">
+                <a href="mod-detalhes.html">
+                    <img src="https://via.placeholder.com/400x250.png?text=Mod+1" alt="Thumbnail do Mod 1">
+                </a>
+                <div class="mod-info">
+                    <h3>Nome do Mod Incrível</h3>
+                    <p>Uma breve descrição do mod que explica o que ele faz e por que é legal. Max de 2-3 linhas.</p>
+                    <div class="mod-details">
+                        <span>Autor: John Doe</span>
+                        <span>Downloads: 12.345</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mod-card">
+                <a href="mod-detalhes.html">
+                    <img src="https://via.placeholder.com/400x250.png?text=Mod+2" alt="Thumbnail do Mod 2">
+                </a>
+                <div class="mod-info">
+                    <h3>Outro Mod Impressionante</h3>
+                    <p>Este mod adiciona novos recursos e melhora a experiência de jogo, sendo essencial para qualquer jogador.</p>
+                    <div class="mod-details">
+                        <span>Autor: Jane Smith</span>
+                        <span>Downloads: 9.876</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mod-card">
+                <a href="mod-detalhes.html">
+                    <img src="https://via.placeholder.com/400x250.png?text=Mod+3" alt="Thumbnail do Mod 3">
+                </a>
+                <div class="mod-info">
+                    <h3>Mod de Texturas HD</h3>
+                    <p>Um pacote de texturas de alta definição que renova completamente o visual do seu jogo. Altamente recomendado!</p>
+                    <div class="mod-details">
+                        <span>Autor: ModMaster</span>
+                        <span>Downloads: 5.432</span>
+                    </div>
+                </div>
+            </div>
+            
+            </section>
+    </main>
+
+</body>
+</html>
