@@ -30,6 +30,15 @@
             z-index: 1000;
         }
 
+        /* Estilos da Logo no canto superior esquerdo */
+        .logo-site {
+            position: fixed; /* Fixa a posição na tela */
+            top: 20px;       /* Distância do topo */
+            left: 20px;      /* Distância da esquerda */
+            height: 50px;    /* Altura da imagem */
+            z-index: 1000;   /* Garante que fique acima de outros elementos */
+        }
+
         /* Estilos de link que se parecem com botões */
         .cadastro-btn-preto-borda, .login-btn-laranja {
             padding: 10px 20px;
@@ -67,6 +76,8 @@
     </style>
 </head>
 <body>
+    <img src="https://i.postimg.cc/pdDwQVLT/Design-sem-nome-5-removebg-preview.png" alt="Logo do Site" class="logo-site">
+
     <div class="botoes-container">
         <a href="login.html" class="login-btn-laranja">Login</a>
         <a href="cadastro.html" class="cadastro-btn-preto-borda">Cadastre-se</a>
