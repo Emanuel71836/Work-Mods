@@ -17,7 +17,7 @@
             color: white;
             font-family: sans-serif;
             text-align: center;
-            position: relative; /* Adicionado para ser o contêiner do título posicionado */
+            position: relative;
         }
 
         /* Contêiner para os botões no canto superior direito */
@@ -28,21 +28,6 @@
             display: flex;
             gap: 15px;
             z-index: 1000;
-        }
-
-        /* ESTILO ATUALIZADO PARA O TÍTULO - POSICIONAMENTO ABSOLUTO */
-        .titulo-destaque {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #ff8c00;
-            text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
-            
-            position: absolute; /* POSICIONAMENTO ABSOLUTO */
-            top: 50px; /* DISTÂNCIA DO TOPO */
-            left: 50%; /* MOVE PARA O CENTRO DA PÁGINA */
-            transform: translateX(-50%); /* AJUSTA O ALINHAMENTO HORIZONTALMENTE */
-            width: 100%;
-            max-width: 800px; /* Limita a largura para evitar quebras de linha estranhas */
         }
 
         /* Estilos de link que se parecem com botões */
@@ -86,8 +71,6 @@
         <a href="login.html" class="login-btn-laranja">Login</a>
         <a href="cadastro.html" class="cadastro-btn-preto-borda">Cadastre-se</a>
     </div>
-
-    <h1 class="titulo-destaque">O MELHOR SITE PRA PUBLICAÇÃO DE MODS DE TODOS OS TIPOS</h1>
     
 </body>
 </html>
