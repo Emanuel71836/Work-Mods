@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postar Mod</title>
+    <title>Work Mods - Postar</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             background-color: black;
             color: white;
@@ -19,170 +15,46 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            text-align: center;
         }
 
-        .upload-container {
+        .container {
             padding: 40px;
             background-color: #1a1a1a;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            overflow-y: auto;
-            max-height: 95vh;
+            max-width: 600px;
+            width: 90%;
         }
 
-        h2 {
+        .container h1 {
             color: #ff8c00;
         }
 
-        .upload-form input, .upload-form textarea, .upload-form button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
             border-radius: 5px;
-            border: 1px solid #333333;
-            box-sizing: border-box;
-            background-color: #222222;
-            color: white;
-        }
-        
-        .upload-form textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        .upload-form button {
-            background-color: #ff8c00;
+            text-decoration: none;
             color: white;
             font-weight: bold;
             cursor: pointer;
+            background-color: #ff8c00;
             transition: background-color 0.3s;
-            border: none;
         }
 
-        .upload-form button:hover {
+        .back-button:hover {
             background-color: #ffa500;
-        }
-        
-        /* Estilo para a mensagem de feedback */
-        #feedback {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        .success {
-            color: #4CAF50;
-        }
-        .error {
-            color: #f44336;
         }
     </style>
 </head>
 <body>
-    <div class="upload-container">
-        <h2>Postar um Novo Mod</h2>
-        <form class="upload-form" id="mod-form">
-            <input type="text" id="mod-nome" placeholder="Nome do Mod" required>
-            <input type="text" id="mod-tags" placeholder="Tags (separar por vírgula)" required>
-            <textarea id="mod-descricao" placeholder="Descrição do Mod" required></textarea>
-            
-            <p style="text-align: left; margin: 15px 0 5px; font-weight: bold;">Links para as Fotos de Demonstração:</p>
-            <input type="url" id="foto1" placeholder="URL da Foto 1 (obrigatório)" required>
-            <input type="url" id="foto2" placeholder="URL da Foto 2 (opcional)">
-            <input type="url" id="foto3" placeholder="URL da Foto 3 (opcional)">
-
-            <p style="text-align: left; margin: 15px 0 5px; font-weight: bold;">Link do Arquivo do Mod:</p>
-            <input type="url" id="mod-arquivo" placeholder="URL do arquivo do Mod (obrigatório)" required>
-
-            <button type="submit">Postar Mod</button>
-        </form>
-        <p id="feedback"></p>
-    </div>
-
-    <script type="module" src="firebase-config.js"></script>
-
-    <script type="module">
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-        import { app } from "./firebase-config.js";
-
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        const modForm = document.getElementById('mod-form');
-        const feedbackMessage = document.getElementById('feedback');
-
-        // VERIFICA SE O USUÁRIO ESTÁ LOGADO
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.href = 'index.html';
-            }
-        });
+    <div class="container">
+        <h1>Painel de Postagem</h1>
+        <p>Aqui você poderá adicionar a funcionalidade para postar mods.</p>
         
-        // FUNÇÃO PARA GERAR O NOME DE USUÁRIO A PARTIR DO EMAIL
-        function createUsernameFromEmail(email) {
-            const username = email.split('@')[0];
-            return username.replace(/[0-9]/g, '');
-        }
-
-        // FUNÇÃO PARA LIDAR COM O ENVIO DO FORMULÁRIO
-        modForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const user = auth.currentUser;
-            if (!user) {
-                feedbackMessage.textContent = 'Você precisa estar logado para postar um mod.';
-                feedbackMessage.className = 'error';
-                return;
-            }
-
-            const submitBtn = modForm.querySelector('button');
-            submitBtn.disabled = true;
-            feedbackMessage.textContent = 'Enviando...';
-            feedbackMessage.className = '';
-
-            const modName = modForm['mod-nome'].value;
-            const modTags = modForm['mod-tags'].value;
-            const modDesc = modForm['mod-descricao'].value;
-            
-            // PEGA AS URLs DIRETAMENTE DOS CAMPOS DE TEXTO
-            const foto1URL = modForm['foto1'].value;
-            const foto2URL = modForm['foto2'].value || null;
-            const foto3URL = modForm['foto3'].value || null;
-            const modFileURL = modForm['mod-arquivo'].value;
-
-            // GERA O NOME DE USUÁRIO E A URL DA FOTO DE PERFIL
-            const username = createUsernameFromEmail(user.email);
-            const userPhoto = user.photoURL || 'https://via.placeholder.com/40';
-
-            try {
-                // Salvar dados no Firebase Firestore
-                await addDoc(collection(db, "mods"), {
-                    nome: modName,
-                    descricao: modDesc,
-                    tags: modTags,
-                    foto1: foto1URL,
-                    foto2: foto2URL,
-                    foto3: foto3URL,
-                    arquivo: modFileURL,
-                    nomeUsuario: username,
-                    fotoUsuario: userPhoto,
-                    createdAt: new Date()
-                });
-
-                feedbackMessage.textContent = 'Mod postado com sucesso!';
-                feedbackMessage.className = 'success';
-                modForm.reset();
-            } catch (error) {
-                console.error("Erro ao postar o mod:", error);
-                feedbackMessage.textContent = `Erro ao postar o mod. Detalhes: ${error.message}`;
-                feedbackMessage.className = 'error';
-            } finally {
-                submitBtn.disabled = false;
-            }
-        });
-    </script>
+        <a href="dashboard.html" class="back-button">Voltar para o Painel</a>
+    </div>
 </body>
 </html>
