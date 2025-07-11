@@ -7,96 +7,157 @@
     <style>
         body {
             background-color: black;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             color: white;
             font-family: sans-serif;
-            text-align: center;
-            position: relative;
-            
-            /* BORDA LARANJA ADICIONADA AQUI */
-            border: 5px solid #ff8c00; 
-        }
-
-        /* Contêiner para os botões no canto superior direito */
-        .botoes-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
             display: flex;
-            gap: 15px;
-            z-index: 1000;
-        }
-
-        /* Estilos da Logo no canto superior esquerdo */
-        .logo-site {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            height: 50px;
-            z-index: 1000;
-        }
-
-        /* Estilo para a imagem no centro */
-        .imagem-central {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 80%;
-            height: auto;
-            z-index: 1;
-        }
-
-        /* Estilos de link que se parecem com botões */
-        .cadastro-btn-preto-borda, .login-btn-laranja {
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            outline: none;
-            text-decoration: none;
-            display: inline-block;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
-            line-height: 1.2;
+        }
+        
+        .main-content {
+            padding: 40px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 90%;
         }
 
-        .cadastro-btn-preto-borda {
+        .main-content img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        
+        .main-content h1 {
+            color: #ff8c00;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #333333;
+            box-sizing: border-box;
             background-color: #222222;
             color: white;
-            border: 1px solid #333333;
-        }
-        .cadastro-btn-preto-borda:hover {
-            background-color: #3b3b3b;
-            box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.7);
         }
 
-        .login-btn-laranja {
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: none;
             background-color: #ff8c00;
             color: white;
-            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .login-btn-laranja:hover {
+        .login-form button:hover {
             background-color: #ffa500;
-            box-shadow: 0 0 10px 5px rgba(255, 165, 0, 0.7);
+        }
+        
+        .register-link {
+            display: block;
+            margin-top: 15px;
+            color: #ff8c00;
+            text-decoration: none;
+        }
+        .register-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Estilo para a mensagem de feedback */
+        #feedback-message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .error {
+            color: #f44336;
         }
     </style>
 </head>
 <body>
-    <img src="https://i.postimg.cc/pdDwQVLT/Design-sem-nome-5-removebg-preview.png" alt="Logo do Site" class="logo-site">
-
-    <img src="https://i.postimg.cc/QxJSqBpv/QUER-EXPORTAR-SEUS-MODS-COMPLETAMENTE-DE-GRA-A-USE-A-NOSSA-PLATAFORMA-BASTA-FAZER-O-LOGIN.png" alt="Imagem Central" class="imagem-central">
-
-    <div class="botoes-container">
-        <a href="login.html" class="login-btn-laranja">Login</a>
-        <a href="cadastro.html" class="cadastro-btn-preto-borda">Cadastre-se</a>
+    <div class="main-content">
+        <img src="https://i.postimg.cc/pdDwQVLT/Design-sem-nome-5-removebg-preview.png" alt="Logo do Site">
+        <h1>Login</h1>
+        <form class="login-form" id="login-form">
+            <input type="email" id="email" placeholder="E-mail" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="feedback-message"></p>
+        <a href="cadastro.html" class="register-link">Não tem uma conta? Cadastre-se</a>
     </div>
+
+    <script type="module" src="firebase-config.js"></script>
+
+    <script type="module">
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { app } from "./firebase-config.js";
+
+        const auth = getAuth(app);
+        const loginForm = document.getElementById('login-form');
+        const feedbackMessage = document.getElementById('feedback-message');
+
+        // VERIFICA O ESTADO DA AUTENTICAÇÃO AO CARREGAR A PÁGINA
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Se o usuário já está logado, redireciona imediatamente
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = loginForm['email'].value;
+            const password = loginForm['password'].value;
+            const loginBtn = loginForm.querySelector('button');
+
+            loginBtn.disabled = true;
+            feedbackMessage.textContent = 'Carregando...';
+            feedbackMessage.className = '';
+
+            try {
+                // Tenta fazer o login
+                await signInWithEmailAndPassword(auth, email, password);
+                // O redirecionamento será feito pelo onAuthStateChanged logo após o login bem-sucedido
+                feedbackMessage.textContent = 'Login bem-sucedido!';
+                feedbackMessage.className = 'success';
+                loginForm.reset();
+            } catch (error) {
+                console.error("Erro de login:", error.message);
+                
+                let errorMessage;
+                switch (error.code) {
+                    case 'auth/wrong-password':
+                        errorMessage = 'Senha incorreta.';
+                        break;
+                    case 'auth/user-not-found':
+                        errorMessage = 'Usuário não encontrado.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'E-mail inválido.';
+                        break;
+                    default:
+                        errorMessage = 'Erro ao fazer login. Tente novamente.';
+                }
+                
+                feedbackMessage.textContent = errorMessage;
+                feedbackMessage.className = 'error';
+            } finally {
+                loginBtn.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>
