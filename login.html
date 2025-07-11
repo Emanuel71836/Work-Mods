@@ -62,6 +62,22 @@
         .login-form button:hover {
             background-color: #ffa500;
         }
+
+        .google-btn {
+            background-color: #4285F4; /* Cor azul do Google */
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+        .google-btn:hover {
+            background-color: #357ae8;
+        }
         
         .register-link {
             display: block;
@@ -94,6 +110,7 @@
             <input type="password" id="password" placeholder="Senha" required>
             <button type="submit">Entrar</button>
         </form>
+        <button id="google-login-btn" class="google-btn">Entrar com Google</button>
         <p id="feedback-message"></p>
         <a href="cadastro.html" class="register-link">Não tem uma conta? Cadastre-se</a>
     </div>
@@ -101,13 +118,15 @@
     <script type="module" src="firebase-config.js"></script>
 
     <script type="module">
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { app } from "./firebase-config.js";
 
         const auth = getAuth(app);
         const loginForm = document.getElementById('login-form');
+        const googleLoginBtn = document.getElementById('google-login-btn');
         const feedbackMessage = document.getElementById('feedback-message');
 
+        // LÓGICA DE LOGIN COM E-MAIL E SENHA (EXISTENTE)
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = loginForm['email'].value;
@@ -119,12 +138,8 @@
             feedbackMessage.className = '';
 
             try {
-                // Tenta fazer o login
                 await signInWithEmailAndPassword(auth, email, password);
-                
-                // Redireciona diretamente para o dashboard após o login bem-sucedido
                 window.location.href = 'dashboard.html';
-
             } catch (error) {
                 console.error("Erro de login:", error.message);
                 
@@ -147,6 +162,23 @@
                 feedbackMessage.className = 'error';
             } finally {
                 loginBtn.disabled = false;
+            }
+        });
+
+        // NOVA LÓGICA DE LOGIN COM O GOOGLE
+        googleLoginBtn.addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            feedbackMessage.textContent = 'Redirecionando para login com Google...';
+            feedbackMessage.className = '';
+
+            try {
+                await signInWithPopup(auth, provider);
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                console.error("Erro no login com Google:", error);
+                const errorMessage = 'Erro ao fazer login com Google. Tente novamente.';
+                feedbackMessage.textContent = errorMessage;
+                feedbackMessage.className = 'error';
             }
         });
     </script>
